@@ -1,0 +1,80 @@
+# ==========================
+# Terraform
+# ==========================
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*.tfvars
+*.tfvars.json
+
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.egg-info/
+build/
+dist/
+venv/
+.env
+*.env
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==========================
+# pyproject.toml-based Projects
+# ==========================
+*.lock
+/.mypy_cache/
+/.pytest_cache/
+/.tox/
+/.coverage
+htmlcov/
+
+# ==========================
+# Next.js
+# ==========================
+.next/
+out/
+node_modules/
+npm-debug.log
+*.log
+*.tsbuildinfo
+.next/cache
+.next/static
+.next/trace
+
+# ==========================
+# Pytest
+# ==========================
+.cache/
+.pytest_cache/
+test-reports/
+coverage.xml
+*.cover
+.coverage
+nose2-junit.xml
+nosetests.xml
+
+# ==========================
+# Miscellaneous
+# ==========================
+.DS_Store
+.vscode/
+.idea/
+*.iml
+*.log
+*.bak
+*.tmp
+*.swp
+*.swo
+*.orig
+Thumbs.db

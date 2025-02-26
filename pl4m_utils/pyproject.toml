@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pl4m_utils"
+version = "0.1.0"
+description = "Utility functions for PL4M applications"
+authors = [{ name = "Tyler Lewis", email = "tyler@pl4m.com" }]
+readme = "README.md"
+dependencies = [
+    "google-cloud-firestore",
+    "google-cloud-storage"
+]
+
+[tool.setuptools]
+packages = ["pl4m_utils"] 
+
+[tool.setuptools.package-dir]
+"" = "src" 
