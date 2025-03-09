@@ -10,7 +10,9 @@ authors = [{ name = "Tyler Lewis", email = "tyler@pl4m.com" }]
 readme = "README.md"
 dependencies = [
     "google-cloud-firestore",
-    "google-cloud-storage"
+    "google-cloud-storage",
+    "flask",
+    "flask-cors"
 ]
 
 [tool.setuptools]
@@ -18,3 +20,9 @@ packages = ["pl4m_utils"]
 
 [tool.setuptools.package-dir]
 "" = "src" 
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"] 

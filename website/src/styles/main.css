@@ -1,0 +1,49 @@
+/* Import all component and layout styles */
+@import './layout/grid.css';
+@import './components/image-card.css';
+
+/* Global styles */
+.loading {
+  /* Add any loading styles you want */
+}
+
+.error {
+  /* Add any error styles you want */
+}
+
+.feed-container {
+  padding: 20px;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.apply-filters-btn {
+  padding: 8px 16px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.apply-filters-btn:hover {
+  background-color: #0051b3;
+}
+
+.apply-filters-btn:active {
+  background-color: #003d8a;
+} 

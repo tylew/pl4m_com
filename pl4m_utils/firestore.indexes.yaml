@@ -1,0 +1,100 @@
+indexes:
+  # Document-specific indexes
+  - collectionGroup: "tylers-platform-documents"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "deleted_at"
+        order: ASCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-documents"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "tags"
+        arrayConfig: CONTAINS
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-documents"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "title"
+        order: ASCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  # Image-specific indexes
+  - collectionGroup: "tylers-platform-images"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "deleted_at"
+        order: ASCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-images"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "tags"
+        arrayConfig: CONTAINS
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-images"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "taken_at"
+        order: DESCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  # Blog-specific indexes
+  - collectionGroup: "tylers-platform-blog"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "deleted_at"
+        order: ASCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-blog"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "tags"
+        arrayConfig: CONTAINS
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-blog"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "title"
+        order: ASCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  # Common fields for all collections
+  - collectionGroup: "tylers-platform-documents"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "updated_at"
+        order: DESCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-images"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "updated_at"
+        order: DESCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING
+
+  - collectionGroup: "tylers-platform-blog"
+    queryScope: COLLECTION
+    fields:
+      - fieldPath: "updated_at"
+        order: DESCENDING
+      - fieldPath: "created_at"
+        order: DESCENDING 

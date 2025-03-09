@@ -1,0 +1,339 @@
+openapi: 3.0.0
+info:
+  title: PL4M Content Management API
+  version: '1.0.0'
+  description: API for managing content in the PL4M content management system
+
+servers:
+  - url: http://localhost:5000
+    description: Development server
+
+paths:
+  /api/content/types:
+    get:
+      summary: List content types
+      description: Get available content types and their configurations
+      responses:
+        '200':
+          description: Content types retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content_types:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        valid_extensions:
+                          type: array
+                          items:
+                            type: string
+                        required_metadata:
+                          type: array
+                          items:
+                            type: string
+                        optional_metadata:
+                          type: array
+                          items:
+                            type: string
+
+  /api/content/{content_type}:
+    post:
+      summary: Upload new content
+      description: Upload a new content item with metadata
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [documents, images, blog]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                metadata:
+                  type: string
+                  description: JSON string of metadata
+                creation_date:
+                  type: string
+                  format: date-time
+                path_date:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Content created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  type:
+                    type: string
+
+  /api/content/{content_type}/{content_id}:
+    get:
+      summary: Get content
+      description: Retrieve content and metadata
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: metadata_only
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Content retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Content not found
+
+    patch:
+      summary: Update content
+      description: Update content metadata and/or content
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                content:
+                  type: string
+                  format: byte
+      responses:
+        '200':
+          description: Content updated successfully
+        '404':
+          description: Content not found
+
+    delete:
+      summary: Delete content
+      description: Delete content (soft or hard delete)
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: hard_delete
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Content deleted successfully
+        '404':
+          description: Content not found
+
+  /api/content/{content_type}/{content_id}/restore:
+    post:
+      summary: Restore content
+      description: Restore soft-deleted content
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Content restored successfully
+        '404':
+          description: Content not found
+
+  /api/content/{content_type}/list:
+    get:
+      summary: List content
+      description: Get paginated list of content with optional filtering
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: tags
+          in: query
+          schema:
+            type: string
+            description: Comma-separated list of tags
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+            default: created_at
+        - name: sort_order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - name: deleted
+          in: query
+          schema:
+            type: string
+            enum: [true, false, only]
+            default: false
+      responses:
+        '200':
+          description: Content list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  pages:
+                    type: integer
+
+  /api/content/{content_type}/search:
+    post:
+      summary: Search content
+      description: Search content with complex filtering
+      parameters:
+        - name: content_type
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                      op:
+                        type: string
+                      value:
+                        type: string
+                sort:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                      order:
+                        type: string
+                        enum: [asc, desc]
+                page:
+                  type: integer
+                  default: 1
+                per_page:
+                  type: integer
+                  default: 20
+                  maximum: 100
+      responses:
+        '200':
+          description: Search results retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  pages:
+                    type: integer 

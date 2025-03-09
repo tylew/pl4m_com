@@ -1,0 +1,7 @@
+Flask==3.0.3
+gunicorn==23.0.0
+Werkzeug==3.0.3
+# PL4M utilities and its dependencies
+google-cloud-storage==2.10.0
+google-cloud-firestore==2.11.1
+python-dateutil==2.8.2

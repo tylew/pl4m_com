@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PL4M Platform</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #61dafb;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+        }
+        .countdown {
+            font-size: 1rem;
+            color: #888;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #61dafb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            let timeLeft = 10;
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = `Redirecting to pl4m.com in ${timeLeft} seconds...`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = 'https://pl4m.com';
+                }
+            }, 1000);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>PL4M Platform Service</h1>
+        <p>This subdomain is part of the PL4M platform infrastructure. It powers various backend services and content delivery for pl4m.com.</p>
+        <div class="loader"></div>
+        <div class="countdown" id="countdown">Redirecting to pl4m.com in 10 seconds...</div>
+    </div>
+</body>
+</html>
